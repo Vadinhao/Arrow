@@ -10,7 +10,7 @@
     <string name="edv_value">10</string>
     <string name="btn_play_animated">Play animated</string>
     <string name="tv_min_number_of_iteration">1</string>
-    <string name="tv_max_number_of_iteration">n</string>
+    <string name="tv_max_number_of_iteration">10</string>
     <!--end region fragment_arrows_field_control-->
 
 </resources>

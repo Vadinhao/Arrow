@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="app_name">Arrow</string>
+
+    <!--region fragment_arrows_field_control-->
+    <string name="btn_step">Step</string>
+    <string name="btn_generate_field">Generate field</string>
+    <string name="btn_rotate">Rotate</string>
+    <string name="tv_number_of_iteration">Number of iteration</string>
+    <string name="edv_value">10</string>
+    <string name="btn_play_animated">Play animated</string>
+    <string name="tv_min_number_of_iteration">1</string>
+    <string name="tv_max_number_of_iteration">n</string>
+    <!--end region fragment_arrows_field_control-->
+
+</resources>

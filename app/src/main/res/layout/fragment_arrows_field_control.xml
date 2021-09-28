@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.screens.arrows_field_control.ArrowsFieldControlFragment">
+
+    <Button
+        android:id="@+id/btn_generate"
+        android:layout_width="@dimen/margin_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin_8"
+        android:text="@string/btn_generate_field"
+        app:layout_constraintEnd_toStartOf="@+id/btn_rotate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_rotate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_rotate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_number_of_iteration"
+        android:layout_width="@dimen/margin_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin_8"
+        android:text="@string/tv_number_of_iteration"
+        app:layout_constraintBottom_toBottomOf="@+id/edt_number_of_iteration"
+        app:layout_constraintEnd_toStartOf="@+id/edt_number_of_iteration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edt_number_of_iteration" />
+
+    <EditText
+        android:id="@+id/edt_number_of_iteration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="@string/edv_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_rotate" />
+
+    <TextView
+        android:id="@+id/tv_min_number_of_iteration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_min_number_of_iteration"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_max_number_of_iteration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_max_number_of_iteration" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="@dimen/margin_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_max_number_of_iteration"
+        app:layout_constraintEnd_toStartOf="@+id/tv_max_number_of_iteration"
+        app:layout_constraintStart_toEndOf="@+id/tv_min_number_of_iteration"
+        app:layout_constraintTop_toTopOf="@+id/tv_max_number_of_iteration" />
+
+    <TextView
+        android:id="@+id/tv_max_number_of_iteration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:text="@string/tv_max_number_of_iteration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_number_of_iteration" />
+
+    <Button
+        android:id="@+id/btn_play_animated"
+        android:layout_width="@dimen/margin_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin_8"
+        android:text="@string/btn_play_animated"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_step"
+        app:layout_constraintEnd_toStartOf="@+id/btn_step"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_step" />
+
+    <Button
+        android:id="@+id/btn_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:text="@string/btn_step"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_max_number_of_iteration" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

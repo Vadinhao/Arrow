@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="Arrow" />
+
+
+    <!-- region Text Input -->
+    <style name="Arrow.TextInput" parent="Base.Widget.MaterialComponents.TextInputLayout" />
+
+    <style name="Arrow.TextInput.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/light_sky_blue</item>
+    </style>
+    <!-- endregion Text Input -->
+
+
+    <!-- region Buttons-->
+    <style name="Arrow.Button" parent="Widget.MaterialComponents.Button" />
+
+    <style name="Arrow.Button.Round">
+        <item name="cornerRadius">@dimen/margin_6</item>
+        <item name="android:insetTop">@dimen/margin_4</item>
+        <item name="android:insetBottom">@dimen/margin_4</item>
+    </style>
+    <!-- endregion Buttons-->
+
+</resources>

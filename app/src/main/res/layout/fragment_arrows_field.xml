@@ -2,7 +2,7 @@
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.screens.arrows_field.ArrowsFieldFragment"
+    android:id="@+id/rv_arrows"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
@@ -10,5 +10,6 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:spanCount="7"
+    tools:context=".presentation.screens.arrows_field.ArrowsFieldFragment"
     tools:itemCount="49"
     tools:listitem="@layout/list_item_arrow" />

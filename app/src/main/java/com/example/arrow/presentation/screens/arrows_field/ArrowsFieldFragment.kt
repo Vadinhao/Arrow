@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.arrow.databinding.FragmentArrowsFieldBinding
 import com.example.arrow.presentation.recycler.adapter.ArrowsAdapter
 
+
 class ArrowsFieldFragment : Fragment() {
 
     companion object {
@@ -35,7 +36,7 @@ class ArrowsFieldFragment : Fragment() {
     }
 
     private fun setupUi() {
-        binding.rvArrows.adapter = ArrowsAdapter()
+        binding.rvArrows.adapter = ArrowsAdapter(viewModel.selectedItem)
     }
 
 }

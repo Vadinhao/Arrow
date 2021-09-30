@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arrow.R
 import com.example.arrow.databinding.ListItemArrowBinding
-import com.example.arrow.presentation.screens.arrows_field.ArrowsSelection
+import com.example.arrow.domain.models.arrow.Arrow
 
 class ArrowsHolder(
     view: View
@@ -14,12 +14,18 @@ class ArrowsHolder(
 
     private val binding = ListItemArrowBinding.bind(view)
 
-    fun bind(position : Int, selection: ArrowsSelection){
-        when(selection){
-            ArrowsSelection.SELECTED -> binding.imgvArrow.setBackgroundResource(R.drawable.image_selected_item_border)
-            ArrowsSelection.UNSELECTED -> binding.imgvArrow.setBackgroundResource(R.drawable.image_item_border)
+    fun bind(arrowsItem: Int, border: Int) {
+        binding.imgvArrow.setBackgroundResource(border)
+        binding.imgvArrow.setOnClickListener {  }
+        setArrowsItem(arrowsItem)
+    }
+
+    private fun setArrowsItem(arrowsItemValue: Int) {
+        for (positions in Arrow.values()) {
+            if (positions.position == arrowsItemValue) {
+                binding.imgvArrow.setImageResource(positions.imgArrow)
+            }
         }
-        binding.imgvArrow.setImageResource(R.drawable.ic_arrow_right_up)
     }
 
     companion object {
@@ -30,6 +36,11 @@ class ArrowsHolder(
             val view = LayoutInflater.from(parent.context).inflate(
                 R.layout.list_item_arrow, parent, false
             )
+
+            //val layoutParams = view.layoutParams
+            //layoutParams.width = 50
+            //layoutParams.height = 50
+            //view.layoutParams = layoutParams
 
             return ArrowsHolder(
                 view = view

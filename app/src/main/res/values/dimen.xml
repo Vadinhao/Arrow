@@ -10,6 +10,7 @@
 
     <!--region arrow image-->
     <dimen name = "arrow_image_view_size">50dp</dimen>
+    <dimen name = "arrow_land_image_view_size">37dp</dimen>
     <!--end region arrow image-->
 
 </resources>

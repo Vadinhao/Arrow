@@ -27,13 +27,11 @@
 
     <TextView
         android:id="@+id/tv_number_of_iteration"
-        android:layout_width="@dimen/margin_0"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:layout_marginRight="@dimen/margin_8"
+        android:lines="1"
         android:text="@string/tv_number_of_iteration"
         app:layout_constraintBottom_toBottomOf="@+id/edt_number_of_iteration"
-        app:layout_constraintEnd_toStartOf="@+id/edt_number_of_iteration"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/edt_number_of_iteration" />
 
@@ -46,6 +44,7 @@
         android:inputType="numberDecimal"
         android:text="@string/edv_value"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_number_of_iteration"
         app:layout_constraintTop_toBottomOf="@+id/btn_rotate" />
 
     <TextView

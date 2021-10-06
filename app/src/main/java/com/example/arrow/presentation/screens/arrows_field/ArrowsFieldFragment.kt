@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.arrow.databinding.FragmentArrowsFieldBinding
+import com.example.arrow.domain.models.position.Position
 import com.example.arrow.presentation.recycler.adapter.ArrowsAdapter
 
 
@@ -31,12 +32,24 @@ class ArrowsFieldFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ArrowsFieldViewModel::class.java)
-        setupUi()
+        setUpVM()
+        setUpUi()
     }
 
-    private fun setupUi() {
-        binding.rvArrows.adapter = ArrowsAdapter(viewModel.selectedItem)
+    private fun setUpUi() {
+        binding.rvArrows.adapter = ArrowsAdapter(
+            viewModel.selectedItem,
+            viewModel.arrowsFieldArray,
+            viewModel)
+    }
+
+    private fun setUpVM(){
+        viewModel = ViewModelProvider(this).get(ArrowsFieldViewModel::class.java)
+        viewModel.setSelectedItem(Position(0))
+        viewModel.selectedItem.observe(viewLifecycleOwner,
+            { newSelection ->
+                binding.rvArrows.adapter!!.notifyDataSetChanged()
+            })
     }
 
 }

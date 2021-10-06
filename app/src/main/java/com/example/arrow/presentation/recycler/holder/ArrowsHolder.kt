@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.arrow.R
 import com.example.arrow.databinding.ListItemArrowBinding
 import com.example.arrow.domain.models.arrow.Arrow
+import com.example.arrow.domain.models.position.Position
+import com.example.arrow.presentation.screens.arrows_field.ArrowsFieldViewModel
 
 class ArrowsHolder(
     view: View
@@ -14,10 +16,17 @@ class ArrowsHolder(
 
     private val binding = ListItemArrowBinding.bind(view)
 
-    fun bind(arrowsItem: Int, border: Int) {
+    fun bind(
+        arrowsItemValue: Int,
+        border: Int,
+        position: Int,
+        viewModel: ArrowsFieldViewModel
+    ) {
         binding.imgvArrow.setBackgroundResource(border)
-        binding.imgvArrow.setOnClickListener {  }
-        setArrowsItem(arrowsItem)
+        binding.imgvArrow.setOnClickListener {
+            viewModel.setSelectedItem(Position(position))
+        }
+        setArrowsItem(arrowsItemValue)
     }
 
     private fun setArrowsItem(arrowsItemValue: Int) {

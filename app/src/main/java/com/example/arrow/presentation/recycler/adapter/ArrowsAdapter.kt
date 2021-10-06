@@ -1,27 +1,36 @@
 package com.example.arrow.presentation.recycler.adapter
 
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.example.arrow.constants.Constants
-import com.example.arrow.domain.models.arrow.Arrows
+import com.example.arrow.domain.models.position.Position
 import com.example.arrow.presentation.recycler.holder.ArrowsHolder
+import com.example.arrow.presentation.screens.arrows_field.ArrowsFieldViewModel
 import com.example.arrow.presentation.screens.arrows_field.ArrowsSelection
 import kotlin.math.pow
 
-class ArrowsAdapter(selectedItem: Int) : RecyclerView.Adapter<ArrowsHolder>() {
-
-    private val arrowsData = Arrows(Constants.SPANCOUNT).arrows
-    private val selectedItem = selectedItem
+class ArrowsAdapter(
+    private val selectedItem: LiveData<Position>,
+    private val arrowsData: Array<Array<Int>>,
+    private val viewModel: ArrowsFieldViewModel
+) : RecyclerView.Adapter<ArrowsHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArrowsHolder {
         return ArrowsHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ArrowsHolder, position: Int) {
-        val row = position / Constants.SPANCOUNT
-        val column = position % Constants.SPANCOUNT
-        val isSelectedBorder: Int = if(selectedItem == position) ArrowsSelection.SELECTED.border else ArrowsSelection.UNSELECTED.border
-        holder.bind(arrowsData[row][column], isSelectedBorder)
+        val isSelectedBorder: Int =
+            if (selectedItem.value!!.getPosition() == position)
+                ArrowsSelection.SELECTED.border
+            else
+                ArrowsSelection.UNSELECTED.border
+        holder.bind(
+            arrowsData[Position(position).rows()][Position(position).column()],
+            isSelectedBorder,
+            position,
+            viewModel
+        )
     }
 
     override fun getItemCount(): Int {

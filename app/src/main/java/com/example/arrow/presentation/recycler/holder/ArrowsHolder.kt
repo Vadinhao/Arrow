@@ -20,10 +20,12 @@ class ArrowsHolder(
         arrowsItemValue: Int,
         border: Int,
         position: Int,
+        //костыль*
         viewModel: ArrowsFieldViewModel
     ) {
         binding.imgvArrow.setBackgroundResource(border)
         binding.imgvArrow.setOnClickListener {
+            //костыль*
             viewModel.setSelectedItem(Position(position))
         }
         setArrowsItem(arrowsItemValue)

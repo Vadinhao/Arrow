@@ -11,13 +11,6 @@ import com.example.arrow.presentation.screens.shared_view_model.ArrowsFieldViewM
 
 class ArrowsFieldControlFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ArrowsFieldControlFragment()
-    }
-
-    //private var _bindingField: FragmentArrowsFieldBinding? = null
-    //private val bindingField get() = _bindingField!!
-
     private var _bindingControl: FragmentArrowsFieldControlBinding? = null
     private val bindingControl get() = _bindingControl!!
 
@@ -28,6 +21,12 @@ class ArrowsFieldControlFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _bindingControl = FragmentArrowsFieldControlBinding.inflate(inflater, container, false)
+
+        bindingControl.apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = sharedViewModel
+        }
+
         return bindingControl.root
     }
 
@@ -37,13 +36,16 @@ class ArrowsFieldControlFragment : Fragment() {
     }
 
     private fun setUpUi() {
+
         bindingControl.btnRotate.setOnClickListener {
             sharedViewModel.changeOrientationOfSelectedItem()
         }
         bindingControl.btnGenerate.setOnClickListener {
+            sharedViewModel.clearIter()
             sharedViewModel.setArrowsFieldArray()
         }
         bindingControl.btnStep.setOnClickListener {
+            sharedViewModel.nextIter()
             sharedViewModel.step()
         }
     }

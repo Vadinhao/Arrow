@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import com.example.arrow.databinding.FragmentArrowsFieldBinding
 import com.example.arrow.domain.models.position.Position
 import com.example.arrow.presentation.recycler.adapter.ArrowsAdapter
+import com.example.arrow.presentation.screens.shared_view_model.ArrowsFieldViewModel
 
 
 class ArrowsFieldFragment : Fragment() {
@@ -17,17 +18,17 @@ class ArrowsFieldFragment : Fragment() {
         fun newInstance() = ArrowsFieldFragment()
     }
 
-    private var _binding: FragmentArrowsFieldBinding? = null
-    private val binding get() = _binding!!
+    private var _bindingField: FragmentArrowsFieldBinding? = null
+    private val bindingField get() = _bindingField!!
 
-    private lateinit var viewModel: ArrowsFieldViewModel
+    private val sharedViewModel: ArrowsFieldViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentArrowsFieldBinding.inflate(inflater, container, false)
-        return binding.root
+        _bindingField = FragmentArrowsFieldBinding.inflate(inflater, container, false)
+        return bindingField.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -37,18 +38,29 @@ class ArrowsFieldFragment : Fragment() {
     }
 
     private fun setUpUi() {
-        binding.rvArrows.adapter = ArrowsAdapter(
-            viewModel.selectedItem,
-            viewModel.arrowsFieldArray,
-            viewModel)
+        bindingField.rvArrows.adapter = ArrowsAdapter(
+            sharedViewModel.selectedItem,
+            sharedViewModel.arrowsFieldArray,
+            sharedViewModel)
     }
 
     private fun setUpVM(){
-        viewModel = ViewModelProvider(this).get(ArrowsFieldViewModel::class.java)
-        viewModel.setSelectedItem(Position(0))
-        viewModel.selectedItem.observe(viewLifecycleOwner,
+        sharedViewModel.setSelectedItem(Position(0))
+        sharedViewModel.setArrowsFieldArray()
+        //on select item
+        sharedViewModel.selectedItem.observe(viewLifecycleOwner,
             { newSelection ->
-                binding.rvArrows.adapter!!.notifyDataSetChanged()
+                bindingField.rvArrows.adapter!!.notifyDataSetChanged()
+            })
+        //on click btn_rotate
+        sharedViewModel.arrowsFieldArray.observe(viewLifecycleOwner,
+            { changedItem ->
+                bindingField.rvArrows.adapter!!.notifyItemChanged(sharedViewModel.selectedItem.value!!.getPosition())
+            })
+        //on click btn_generate, btn_step
+        sharedViewModel.arrowsFieldArray.observe(viewLifecycleOwner,
+            { changedArr ->
+                bindingField.rvArrows.adapter!!.notifyDataSetChanged()
             })
     }
 

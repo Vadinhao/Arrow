@@ -8,14 +8,14 @@ enum class Arrow(
     @IntegerRes val position: Int,
     @DrawableRes val imgArrow: Int
 ) {
-    UP(1, R.drawable.ic_arrow_up),
-    UP_RIGHT(2, R.drawable.ic_arrow_right_up),
-    RIGHT(3, R.drawable.ic_arrow_right),
-    DOWN_RIGHT(4, R.drawable.ic_arrow_right_down),
-    DOWN(5, R.drawable.ic_arrow_down),
-    DOWN_LEFT(6, R.drawable.ic_arrow_left_down),
-    LEFT(7, R.drawable.ic_arrow_left),
-    UP_LEFT(8, R.drawable.ic_arrow_left_up)
+    UP(0, R.drawable.ic_arrow_up),
+    UP_RIGHT(1, R.drawable.ic_arrow_right_up),
+    RIGHT(2, R.drawable.ic_arrow_right),
+    DOWN_RIGHT(3, R.drawable.ic_arrow_right_down),
+    DOWN(4, R.drawable.ic_arrow_down),
+    DOWN_LEFT(5, R.drawable.ic_arrow_left_down),
+    LEFT(6, R.drawable.ic_arrow_left),
+    UP_LEFT(7, R.drawable.ic_arrow_left_up)
 }
 
 object Positions{

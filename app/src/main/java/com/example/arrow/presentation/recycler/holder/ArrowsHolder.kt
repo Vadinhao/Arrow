@@ -8,7 +8,7 @@ import com.example.arrow.R
 import com.example.arrow.databinding.ListItemArrowBinding
 import com.example.arrow.domain.models.arrow.Arrow
 import com.example.arrow.domain.models.position.Position
-import com.example.arrow.presentation.screens.arrows_field.ArrowsFieldViewModel
+import com.example.arrow.presentation.screens.shared_view_model.ArrowsFieldViewModel
 
 class ArrowsHolder(
     view: View

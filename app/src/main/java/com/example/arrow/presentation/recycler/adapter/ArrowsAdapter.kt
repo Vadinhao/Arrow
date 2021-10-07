@@ -5,13 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arrow.domain.models.position.Position
 import com.example.arrow.presentation.recycler.holder.ArrowsHolder
-import com.example.arrow.presentation.screens.arrows_field.ArrowsFieldViewModel
+import com.example.arrow.presentation.screens.shared_view_model.ArrowsFieldViewModel
 import com.example.arrow.presentation.screens.arrows_field.ArrowsSelection
 import kotlin.math.pow
 
 class ArrowsAdapter(
     private val selectedItem: LiveData<Position>,
-    private val arrowsData: Array<Array<Int>>,
+    private val arrowsData: LiveData<Array<Array<Int>>>,
     private val viewModel: ArrowsFieldViewModel
 ) : RecyclerView.Adapter<ArrowsHolder>() {
 
@@ -26,7 +26,7 @@ class ArrowsAdapter(
             else
                 ArrowsSelection.UNSELECTED.border
         holder.bind(
-            arrowsData[Position(position).rows()][Position(position).column()],
+            arrowsData.value!![Position(position).rows()][Position(position).column()],
             isSelectedBorder,
             position,
             viewModel
@@ -34,6 +34,6 @@ class ArrowsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return arrowsData.size.toDouble().pow(2.0).toInt()
+        return arrowsData.value!!.size.toDouble().pow(2.0).toInt()
     }
 }

@@ -11,11 +11,18 @@ import com.example.arrow.domain.models.position.Position
 
 class ArrowsFieldViewModel : ViewModel() {
     //7 rows -> 49 items at all, item num 5 -> it's item[4]
+    private var _init: Boolean = true
+    val init: Boolean get() = _init
+
     private var _selectedItem = MutableLiveData<Position>()
     val selectedItem: LiveData<Position> get() = _selectedItem
 
     private var _arrowsFieldArray = MutableLiveData<Array<Array<Int>>>()
     val arrowsFieldArray: LiveData<Array<Array<Int>>> get() = _arrowsFieldArray
+
+    fun initVM(){
+        _init = false
+    }
 
     fun setSelectedItem(selectedItem: Position){
         _selectedItem.value = selectedItem

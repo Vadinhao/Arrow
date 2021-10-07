@@ -26,7 +26,7 @@ class ArrowsFieldControlFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _bindingControl = FragmentArrowsFieldControlBinding.inflate(inflater, container, false)
         return bindingControl.root
     }

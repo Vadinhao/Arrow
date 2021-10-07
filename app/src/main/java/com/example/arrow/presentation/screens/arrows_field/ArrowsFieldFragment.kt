@@ -33,7 +33,8 @@ class ArrowsFieldFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpVM()
+        if(sharedViewModel.init)
+            setUpVM()
         setUpUi()
     }
 
@@ -45,6 +46,7 @@ class ArrowsFieldFragment : Fragment() {
     }
 
     private fun setUpVM(){
+        sharedViewModel.initVM()
         sharedViewModel.setSelectedItem(Position(0))
         sharedViewModel.setArrowsFieldArray()
         //on select item

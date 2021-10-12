@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.arrow.constants.Constants
 import com.example.arrow.databinding.FragmentArrowsFieldBinding
 import com.example.arrow.databinding.FragmentArrowsFieldControlBinding
 import com.example.arrow.domain.models.position.Position
@@ -49,13 +50,16 @@ class ArrowsFieldFragment : Fragment() {
             sharedViewModel.arrowsFieldArray,
             sharedViewModel
         )
+        bindingControl.seekBar.isEnabled = false
     }
 
     private fun setUpVM() {
         sharedViewModel.initVM()
         sharedViewModel.clearIter()
         sharedViewModel.setSelectedItem(Position(0))
+        sharedViewModel.setNumOfIteration(Constants.NUMOFITERATION)
         sharedViewModel.setArrowsFieldArray()
+        sharedViewModel.setArrowsProgressField()
         //on select item
         sharedViewModel.selectedItem.observe(viewLifecycleOwner,
             { newSelection ->

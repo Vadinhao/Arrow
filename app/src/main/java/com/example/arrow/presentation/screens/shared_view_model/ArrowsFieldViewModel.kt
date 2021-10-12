@@ -20,27 +20,42 @@ class ArrowsFieldViewModel : ViewModel() {
     private var _arrowsFieldArray = MutableLiveData<Array<Array<Int>>>()
     val arrowsFieldArray: LiveData<Array<Array<Int>>> get() = _arrowsFieldArray
 
-    private var _iterationNum = MutableLiveData<Int>(30)
+    private var _arrowsProgressFieldArray = MutableLiveData<Array<Array<Array<Int>>>>()
+    val arrowsProgressFieldArray: LiveData<Array<Array<Array<Int>>>> get() = _arrowsProgressFieldArray
+    //текущая итерация
+    private var _iterationNum = MutableLiveData<Int>(Constants.STARTITERATIONNUM)
     val iterationNum: LiveData<Int> = _iterationNum
+
+    private var _numOfIteration = MutableLiveData<Int>()
+    val numOfIteration: LiveData<Int> = _numOfIteration
 
     fun initVM() {
         _init = false
     }
 
-    fun nextIter() {
-        _iterationNum.value = iterationNum.value!! + 1
+    fun clearIter() {
+        _iterationNum.value = Constants.STARTITERATIONNUM
     }
 
-    fun clearIter() {
-        _iterationNum.value = 0
+    fun setIterationNum(position: Int){
+        _iterationNum.value = position
+    }
+
+    fun setArrowsFieldArray() {
+        _arrowsFieldArray.value = Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrows
+    }
+
+    fun setArrowsProgressField(){
+        _arrowsProgressFieldArray.value = Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrowsEmptyProgress
+        copy(_arrowsFieldArray.value!!,0,_arrowsProgressFieldArray.value!![0],0, _arrowsFieldArray.value!!.size)
+    }
+
+    fun setNumOfIteration(num:Int){
+        _numOfIteration.value = num
     }
 
     fun setSelectedItem(selectedItem: Position) {
         _selectedItem.value = selectedItem
-    }
-
-    fun setArrowsFieldArray() {
-        _arrowsFieldArray.value = Arrows(Constants.SPANCOUNT).arrows
     }
 
     fun changeOrientationOfSelectedItem() {
@@ -61,36 +76,51 @@ class ArrowsFieldViewModel : ViewModel() {
         */
     }
 
-    fun step() {
-        var arr: Array<Array<Int>> = Arrows(Constants.SPANCOUNT).arrowsEmpty
-        copy(arrowsFieldArray.value!!, 0, arr, 0, Constants.SPANCOUNT)
+    fun playAnimated(waitMilliseconds: Int) {
+
+    }
+
+    fun setField(pos: Int){
+        _arrowsFieldArray.value = _arrowsProgressFieldArray.value!![pos]
+    }
+
+    fun generateProgress(){
+        val arr: Array<Array<Array<Int>>> = Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrowsEmptyProgress
+        copy(_arrowsProgressFieldArray.value!![0],0,arr[0],0,arrowsFieldArray.value!!.size)
+        for(k in 1..numOfIteration.value!!){
+            arr[k] = step(arr[k - 1])
+            copy(arr[k],0,_arrowsProgressFieldArray.value!![k],0,arrowsFieldArray.value!!.size)
+        }
+
+    }
+
+    private fun step(arrBefore: Array<Array<Int>>) : Array<Array<Int>> {
+        var arr: Array<Array<Int>> = Arrows(Constants.SPANCOUNT, numOfIteration.value!!).arrowsEmpty
+        copy(arrBefore, 0, arr, 0, Constants.SPANCOUNT)
 
         for (i in arr.indices) {
             for (j in arr.indices) {
                 when (arr[i][j]) {
                     Arrow.UP.position ->
-                        arr[i][j] = arrowsFieldArray.value!![check(i - 1)][j]
+                        arr[i][j] = arrBefore[check(i - 1)][j]
                     Arrow.UP_RIGHT.position ->
-                        arr[i][j] = arrowsFieldArray.value!![check(i - 1)][check(j + 1)]
+                        arr[i][j] = arrBefore[check(i - 1)][check(j + 1)]
                     Arrow.RIGHT.position ->
-                        arr[i][j] = arrowsFieldArray.value!![i][check(j + 1)]
+                        arr[i][j] = arrBefore[i][check(j + 1)]
                     Arrow.DOWN_RIGHT.position ->
-                        arr[i][j] = arrowsFieldArray.value!![check(i + 1)][check(j + 1)]
+                        arr[i][j] = arrBefore[check(i + 1)][check(j + 1)]
                     Arrow.DOWN.position ->
-                        arr[i][j] = arrowsFieldArray.value!![check(i + 1)][j]
+                        arr[i][j] = arrBefore[check(i + 1)][j]
                     Arrow.DOWN_LEFT.position ->
-                        arr[i][j] = arrowsFieldArray.value!![check(i + 1)][check(j - 1)]
+                        arr[i][j] = arrBefore[check(i + 1)][check(j - 1)]
                     Arrow.LEFT.position ->
-                        arr[i][j] = arrowsFieldArray.value!![i][check(j - 1)]
+                        arr[i][j] = arrBefore[i][check(j - 1)]
                     Arrow.UP_LEFT.position ->
-                        arr[i][j] = arrowsFieldArray.value!![check(i - 1)][check(j - 1)]
+                        arr[i][j] = arrBefore[check(i - 1)][check(j - 1)]
                 }
             }
         }
-
-        copy(arr, 0, arrowsFieldArray.value!!, 0, Constants.SPANCOUNT)
-        //костыль, не работает обзервер
-        _arrowsFieldArray.value = arr
+        return arr
     }
 
     private fun check(index: Int): Int {

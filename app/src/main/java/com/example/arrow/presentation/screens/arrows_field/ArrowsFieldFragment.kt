@@ -42,6 +42,7 @@ class ArrowsFieldFragment : Fragment() {
         if (sharedViewModel.init)
             setUpVM()
         setUpUi()
+        setUpObservers()
     }
 
     private fun setUpUi() {
@@ -61,6 +62,11 @@ class ArrowsFieldFragment : Fragment() {
         sharedViewModel.setArrowsFieldArray()
         sharedViewModel.setArrowsProgressField()
         //on select item
+        setUpObservers()
+
+    }
+
+    private fun setUpObservers(){
         sharedViewModel.selectedItem.observe(viewLifecycleOwner,
             { newSelection ->
                 bindingField.rvArrows.adapter!!.notifyDataSetChanged()

@@ -3,11 +3,15 @@ package com.example.arrow.presentation.screens.shared_view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.arrow.constants.Constants
 import com.example.arrow.domain.models.arrow.Arrow
 import com.example.arrow.domain.models.arrow.Arrows
 import com.example.arrow.domain.models.arrow.Positions
 import com.example.arrow.domain.models.position.Position
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class ArrowsFieldViewModel : ViewModel() {
 
@@ -22,6 +26,7 @@ class ArrowsFieldViewModel : ViewModel() {
 
     private var _arrowsProgressFieldArray = MutableLiveData<Array<Array<Array<Int>>>>()
     val arrowsProgressFieldArray: LiveData<Array<Array<Array<Int>>>> get() = _arrowsProgressFieldArray
+
     //текущая итерация
     private var _iterationNum = MutableLiveData<Int>(Constants.STARTITERATIONNUM)
     val iterationNum: LiveData<Int> = _iterationNum
@@ -37,7 +42,7 @@ class ArrowsFieldViewModel : ViewModel() {
         _iterationNum.value = Constants.STARTITERATIONNUM
     }
 
-    fun setIterationNum(position: Int){
+    fun setIterationNum(position: Int) {
         _iterationNum.value = position
     }
 
@@ -45,12 +50,19 @@ class ArrowsFieldViewModel : ViewModel() {
         _arrowsFieldArray.value = Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrows
     }
 
-    fun setArrowsProgressField(){
-        _arrowsProgressFieldArray.value = Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrowsEmptyProgress
-        copy(_arrowsFieldArray.value!!,0,_arrowsProgressFieldArray.value!![0],0, _arrowsFieldArray.value!!.size)
+    fun setArrowsProgressField() {
+        _arrowsProgressFieldArray.value =
+            Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrowsEmptyProgress
+        copy(
+            _arrowsFieldArray.value!!,
+            0,
+            _arrowsProgressFieldArray.value!![0],
+            0,
+            _arrowsFieldArray.value!!.size
+        )
     }
 
-    fun setNumOfIteration(num:Int){
+    fun setNumOfIteration(num: Int) {
         _numOfIteration.value = num
     }
 
@@ -76,25 +88,35 @@ class ArrowsFieldViewModel : ViewModel() {
         */
     }
 
-    fun playAnimated(waitMilliseconds: Int) {
+    fun playAnimated(waitMilliseconds: Int) = runBlocking {
+        viewModelScope.launch {
 
+            for (i in arrowsProgressFieldArray.value!!.indices) {
+                //_arrowsFieldArray.postValue(_arrowsProgressFieldArray.value!![i])
+                //_iterationNum.postValue(i)
+                setField(i)
+                setIterationNum(i)
+                delay(waitMilliseconds.toLong())
+            }
+        }
     }
 
-    fun setField(pos: Int){
+    fun setField(pos: Int) {
         _arrowsFieldArray.value = _arrowsProgressFieldArray.value!![pos]
     }
 
-    fun generateProgress(){
-        val arr: Array<Array<Array<Int>>> = Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrowsEmptyProgress
-        copy(_arrowsProgressFieldArray.value!![0],0,arr[0],0,arrowsFieldArray.value!!.size)
-        for(k in 1..numOfIteration.value!!){
+    fun generateProgress() {
+        val arr: Array<Array<Array<Int>>> =
+            Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrowsEmptyProgress
+        copy(_arrowsProgressFieldArray.value!![0], 0, arr[0], 0, arrowsFieldArray.value!!.size)
+        for (k in 1..numOfIteration.value!!) {
             arr[k] = step(arr[k - 1])
-            copy(arr[k],0,_arrowsProgressFieldArray.value!![k],0,arrowsFieldArray.value!!.size)
+            copy(arr[k], 0, _arrowsProgressFieldArray.value!![k], 0, arrowsFieldArray.value!!.size)
         }
 
     }
 
-    private fun step(arrBefore: Array<Array<Int>>) : Array<Array<Int>> {
+    private fun step(arrBefore: Array<Array<Int>>): Array<Array<Int>> {
         var arr: Array<Array<Int>> = Arrows(Constants.SPANCOUNT, numOfIteration.value!!).arrowsEmpty
         copy(arrBefore, 0, arr, 0, Constants.SPANCOUNT)
 

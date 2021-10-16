@@ -69,7 +69,7 @@ class ArrowsFieldControlFragment : Fragment() {
         }
 
         bindingControl.btnPlayAnimated.setOnClickListener {
-
+            sharedViewModel.playAnimated(500)
         }
 
         bindingControl.edtNumberOfIteration.addTextChangedListener(object : TextWatcher {

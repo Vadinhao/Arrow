@@ -94,6 +94,7 @@
             android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginRight="@dimen/margin_8"
             android:clickable="false"
+            android:progress="@{viewModel.iterationNum}"
             android:max="@{viewModel.numOfIteration}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_max_number_of_iteration"
             app:layout_constraintEnd_toStartOf="@+id/tv_max_number_of_iteration"

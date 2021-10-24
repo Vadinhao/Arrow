@@ -15,6 +15,7 @@ class ArrowsHolder(
 ) : RecyclerView.ViewHolder(view) {
 
     private val binding = ListItemArrowBinding.bind(view)
+    //private val sizeImg =
 
     fun bind(
         arrowsItemValue: Int,
@@ -42,16 +43,17 @@ class ArrowsHolder(
     companion object {
 
         fun create(
-            parent: ViewGroup
+            parent: ViewGroup,
+            sizeImg: Int
         ): ArrowsHolder {
             val view = LayoutInflater.from(parent.context).inflate(
                 R.layout.list_item_arrow, parent, false
             )
 
-            //val layoutParams = view.layoutParams
-            //layoutParams.width = 50
-            //layoutParams.height = 50
-            //view.layoutParams = layoutParams
+            val layoutParams = view.layoutParams
+            layoutParams.width = sizeImg
+            layoutParams.height = sizeImg
+            view.layoutParams = layoutParams
 
             return ArrowsHolder(
                 view = view

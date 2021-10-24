@@ -79,7 +79,8 @@ class ArrowsFieldControlFragment : Fragment() {
             override fun beforeTextChanged(
                 s: CharSequence, start: Int,
                 count: Int, after: Int
-            ) {}
+            ) {
+            }
 
             override fun onTextChanged(
                 s: CharSequence, start: Int,
@@ -89,6 +90,26 @@ class ArrowsFieldControlFragment : Fragment() {
                     bindingControl.tvMaxNumberOfIteration.text = s
                     sharedViewModel.setNumOfIteration(s.toString().toInt())
                     bindingControl.seekBar.isEnabled = false
+                }
+            }
+        })
+
+        bindingControl.edtNumberOfRows.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (s.toString().isNotEmpty()) {
+                    sharedViewModel.setSpanCount(s.toString().toInt())
                 }
             }
         })

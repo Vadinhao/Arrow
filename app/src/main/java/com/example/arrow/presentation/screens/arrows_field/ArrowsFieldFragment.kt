@@ -1,11 +1,13 @@
 package com.example.arrow.presentation.screens.arrows_field
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.arrow.constants.Constants
 import com.example.arrow.databinding.FragmentArrowsFieldBinding
 import com.example.arrow.databinding.FragmentArrowsFieldControlBinding
@@ -52,21 +54,23 @@ class ArrowsFieldFragment : Fragment() {
             sharedViewModel
         )
         bindingControl.seekBar.isEnabled = false
+
+        setUpListItemSize()
     }
 
     private fun setUpVM() {
         sharedViewModel.initVM()
         sharedViewModel.clearIter()
         sharedViewModel.setSelectedItem(Position(0))
+        sharedViewModel.setSpanCount(Constants.SPANCOUNT)
         sharedViewModel.setNumOfIteration(Constants.NUMOFITERATION)
         sharedViewModel.setArrowsFieldArray()
         sharedViewModel.setArrowsProgressField()
         //on select item
         setUpObservers()
-
     }
 
-    private fun setUpObservers(){
+    private fun setUpObservers() {
         sharedViewModel.selectedItem.observe(viewLifecycleOwner,
             { newSelection ->
                 bindingField.rvArrows.adapter!!.notifyDataSetChanged()
@@ -81,6 +85,41 @@ class ArrowsFieldFragment : Fragment() {
             { changedArr ->
                 bindingField.rvArrows.adapter!!.notifyDataSetChanged()
             })
+        sharedViewModel.SPANCOUNT.observe(viewLifecycleOwner,
+            { changedRowsCount ->
+                if(changedRowsCount != 0 && changedRowsCount != 1) {
+                    val layoutManager =
+                        GridLayoutManager(bindingField.rvArrows.context, changedRowsCount.toInt())
+                    layoutManager.spanCount = changedRowsCount.toInt()
+                    bindingField.rvArrows.layoutManager = layoutManager
+
+                    //sharedViewModel.setSpanCount(changedRowsCount.toInt())
+
+                    //setUpVM()
+                    //setUpUi()
+                    //setUpObservers()
+                    //sharedViewModel.setArrowsFieldArray()
+                    setUpListItemSize()
+
+                    //sharedViewModel.clearIter()
+                    //sharedViewModel.setArrowsFieldArray()
+
+                    bindingControl.seekBar.isEnabled = false
+                    bindingField.rvArrows.adapter!!.notifyItemChanged(sharedViewModel.SPANCOUNT.value!!)
+                }
+            })
+    }
+
+    private fun setUpListItemSize() {
+        val displayMetrics = resources.displayMetrics
+        val dpHeight = (displayMetrics.heightPixels / displayMetrics.density).toInt()
+        val dpHeightControl = (Constants.DPCONTROL / displayMetrics.density).toInt()
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            sharedViewModel.setSizeOfListItem((dpHeight - dpHeightControl) / sharedViewModel.SPANCOUNT.value!!)
+        } else {
+            sharedViewModel.setSizeOfListItem((dpHeight - Constants.DPTITLEBARANDMARGINSFORRV) / sharedViewModel.SPANCOUNT.value!!)
+        }
     }
 
 }

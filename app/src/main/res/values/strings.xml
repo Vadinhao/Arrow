@@ -3,15 +3,18 @@
     <string name="app_name">Arrow</string>
 
     <!--region fragment_arrows_field_control-->
-    <string name="btn_generate_progress">Generate progress</string>
+    <string name="btn_generate_progress">Progress</string>
     <string name="btn_generate_field">Generate field</string>
     <string name="btn_rotate">Rotate</string>
-    <string name="tv_number_of_iteration">Number of iteration: </string>
+    <string name="tv_number_of_iteration">Num of iter: </string>
+    <string name="tv_number_of_rows">Num of rows: </string>
+    <string name="tv_iteration_number">Iter num: </string>
     <string name="edv_value">10</string>
-    <string name="btn_play_animated">Play animated</string>
+    <string name="rows_value">7</string>
+    <string name="btn_play_animated">Play</string>
     <string name="tv_min_number_of_iteration">0</string>
     <string name="tv_max_number_of_iteration">10</string>
-    <string name="tv_current_number_of_iteration">Iteration: #%s.</string>
+    <string name="tv_current_number_of_iteration">Iter: #%s.</string>
     <!--end region fragment_arrows_field_control-->
 
 </resources>

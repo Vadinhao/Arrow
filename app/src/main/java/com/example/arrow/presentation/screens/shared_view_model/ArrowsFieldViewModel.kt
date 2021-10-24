@@ -1,5 +1,6 @@
 package com.example.arrow.presentation.screens.shared_view_model
 
+import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,6 +35,19 @@ class ArrowsFieldViewModel : ViewModel() {
     private var _numOfIteration = MutableLiveData<Int>()
     val numOfIteration: LiveData<Int> = _numOfIteration
 
+    private var _sizeOfListItem: Int = 0
+    val sizeOfListItem get() = _sizeOfListItem
+
+    private var _SPANCOUNT = MutableLiveData<Int>(Constants.SPANCOUNT)
+    val SPANCOUNT: LiveData<Int> = _SPANCOUNT
+
+    //fun Int.toDp() = (this * Resources.getSystem().displayMetrics.density).toInt()
+    fun Int.toPx() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
+    fun setSizeOfListItem(size: Int){
+        _sizeOfListItem = size.toPx()
+    }
+
     fun initVM() {
         _init = false
     }
@@ -46,13 +60,17 @@ class ArrowsFieldViewModel : ViewModel() {
         _iterationNum.value = position
     }
 
+    fun setSpanCount(spanCount: Int){
+        _SPANCOUNT.value = spanCount
+    }
+
     fun setArrowsFieldArray() {
-        _arrowsFieldArray.value = Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrows
+        _arrowsFieldArray.value = Arrows(SPANCOUNT.value!!, numOfIteration.value!! + 1).arrows
     }
 
     fun setArrowsProgressField() {
         _arrowsProgressFieldArray.value =
-            Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrowsEmptyProgress
+            Arrows(SPANCOUNT.value!!, numOfIteration.value!! + 1).arrowsEmptyProgress
         copy(
             _arrowsFieldArray.value!!,
             0,
@@ -107,7 +125,7 @@ class ArrowsFieldViewModel : ViewModel() {
 
     fun generateProgress() {
         val arr: Array<Array<Array<Int>>> =
-            Arrows(Constants.SPANCOUNT, numOfIteration.value!! + 1).arrowsEmptyProgress
+            Arrows(SPANCOUNT.value!!, numOfIteration.value!! + 1).arrowsEmptyProgress
         copy(_arrowsProgressFieldArray.value!![0], 0, arr[0], 0, arrowsFieldArray.value!!.size)
         for (k in 1..numOfIteration.value!!) {
             arr[k] = step(arr[k - 1])
@@ -117,8 +135,8 @@ class ArrowsFieldViewModel : ViewModel() {
     }
 
     private fun step(arrBefore: Array<Array<Int>>): Array<Array<Int>> {
-        var arr: Array<Array<Int>> = Arrows(Constants.SPANCOUNT, numOfIteration.value!!).arrowsEmpty
-        copy(arrBefore, 0, arr, 0, Constants.SPANCOUNT)
+        var arr: Array<Array<Int>> = Arrows(SPANCOUNT.value!!, numOfIteration.value!!).arrowsEmpty
+        copy(arrBefore, 0, arr, 0, SPANCOUNT.value!!)
 
         for (i in arr.indices) {
             for (j in arr.indices) {
@@ -147,8 +165,8 @@ class ArrowsFieldViewModel : ViewModel() {
 
     private fun check(index: Int): Int {
         return when (index) {
-            -1 -> Constants.SPANCOUNT - 1
-            Constants.SPANCOUNT -> 0
+            -1 -> SPANCOUNT.value!! - 1
+            SPANCOUNT.value!! -> 0
             else -> index
         }
     }

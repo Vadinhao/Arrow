@@ -12,5 +12,6 @@
     <dimen name = "arrow_image_view_size">50dp</dimen>
     <dimen name = "arrow_land_image_view_size">37dp</dimen>
     <!--end region arrow image-->
+    <dimen name = "control_field_size">200dp</dimen>
 
 </resources>

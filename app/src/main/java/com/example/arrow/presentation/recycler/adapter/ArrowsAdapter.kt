@@ -17,7 +17,7 @@ class ArrowsAdapter(
 ) : RecyclerView.Adapter<ArrowsHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArrowsHolder {
-        return ArrowsHolder.create(parent)
+        return ArrowsHolder.create(parent, viewModel.sizeOfListItem)
     }
 
     override fun onBindViewHolder(holder: ArrowsHolder, position: Int) {

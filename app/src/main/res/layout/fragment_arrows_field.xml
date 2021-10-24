@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="constants"
+            type="com.example.arrow.constants.Constants" />
+    </data>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_arrows"
         android:layout_width="match_parent"
@@ -12,8 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="7"
+        app:spanCount="@{constants.SPANCOUNT}"
         tools:context=".presentation.screens.arrows_field.ArrowsFieldFragment"
-        tools:itemCount="49"
         tools:listitem="@layout/list_item_arrow" />
 </layout>

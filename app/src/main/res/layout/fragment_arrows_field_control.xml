@@ -21,7 +21,6 @@
         android:layout_height="match_parent"
         tools:context=".presentation.screens.arrows_field_control.ArrowsFieldControlFragment">
 
-
         <Button
             android:id="@+id/btn_generate"
             android:layout_width="@dimen/margin_0"
@@ -46,18 +45,20 @@
             android:id="@+id/tv_current_number_of_iteration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:text="@{@string/tv_current_number_of_iteration(viewModel.iterationNum.toString())}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_number_of_iteration"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_number_of_iteration"
-            tools:text="@string/tv_number_of_iteration" />
+            tools:text="@string/tv_iteration_number" />
 
         <TextView
             android:id="@+id/tv_number_of_iteration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8"
-            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginLeft="@dimen/margin_4"
             android:lines="1"
             android:text="@string/tv_number_of_iteration"
             app:layout_constraintBottom_toBottomOf="@+id/edt_number_of_iteration"
@@ -68,12 +69,40 @@
             android:id="@+id/edt_number_of_iteration"
             android:layout_width="@dimen/margin_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:ems="4"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginLeft="@dimen/margin_4"
+            android:ems="3"
             android:inputType="number"
             android:text="@string/edv_value"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_number_of_rows"
             app:layout_constraintStart_toEndOf="@+id/tv_number_of_iteration"
+            app:layout_constraintTop_toTopOf="@+id/tv_number_of_rows" />
+
+        <TextView
+            android:id="@+id/tv_number_of_rows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginLeft="@dimen/margin_4"
+            android:text="@string/tv_number_of_rows"
+            app:layout_constraintBottom_toBottomOf="@+id/edt_number_of_rows"
+            app:layout_constraintStart_toEndOf="@+id/edt_number_of_iteration"
+            app:layout_constraintTop_toTopOf="@+id/edt_number_of_rows" />
+
+        <EditText
+            android:id="@+id/edt_number_of_rows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginLeft="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginRight="@dimen/margin_4"
+            android:ems="3"
+            android:inputType="numberDecimal"
+            android:text="@string/rows_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_number_of_rows"
             app:layout_constraintTop_toBottomOf="@+id/btn_rotate" />
 
         <TextView
@@ -94,8 +123,8 @@
             android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginRight="@dimen/margin_8"
             android:clickable="false"
-            android:progress="@{viewModel.iterationNum}"
             android:max="@{viewModel.numOfIteration}"
+            android:progress="@{viewModel.iterationNum}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_max_number_of_iteration"
             app:layout_constraintEnd_toStartOf="@+id/tv_max_number_of_iteration"
             app:layout_constraintStart_toEndOf="@+id/tv_min_number_of_iteration"
@@ -108,7 +137,7 @@
             android:layout_marginTop="@dimen/margin_8"
             android:text="@{viewModel.numOfIteration.toString()}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_number_of_iteration" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_number_of_rows" />
 
         <Button
             android:id="@+id/btn_play_animated"
